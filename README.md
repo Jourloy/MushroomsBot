@@ -13,7 +13,7 @@ In first, you should to install BlueStack5 for emulate andoid
 #### Install packages
 
 ```shell
-$ pip -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 #### Run
@@ -21,7 +21,7 @@ $ pip -r requirements.txt
 1. Run python file in CMD
 
 ```shell
-$ python3 src/main.py
+$ py src/main.py
 ```
 
 2. Run BlueStack 5
@@ -29,6 +29,6 @@ $ python3 src/main.py
 4. Size BlueStack's windows as template from python file
 5. Press **Enter** in CMD
 
-Now you can use your PC as you want. For stop just close CMD window.
+For stop just close CMD window.
 
 ###### Do not cover BlueStack's window!

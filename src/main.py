@@ -10,14 +10,17 @@ class Main():
 		self.state = 'start'
 
 	def stateStart(self):
+		inBattle = screen.findStart()
+		
+		if (inBattle != None):
+			tools.timer(3)
+
 		ad = screen.findAd()
 
 		if (ad != None):
 			pyautogui.click(ad[0], ad[1]+30)
 			print('Закрыл рекламу')
 			tools.timer()
-
-		inBattle = screen.findStart()
 
 		if (inBattle != None):
 			pyautogui.click(inBattle[0], inBattle[1]+30)
