@@ -3,7 +3,7 @@ import pyautogui
 import imutils
 import cv2
 from imutils.object_detection import non_max_suppression
-
+import pytesseract
 
 class Screen():
 	def __init__(self) -> None:
@@ -32,6 +32,15 @@ class Screen():
 		'''
 		image = self.getScreen()
 		template = cv2.imread('images/category.png')
+		result = self.findTemplate(image, template, threshold)
+		return result
+
+	def findChest(self, threshold=.8):
+		'''
+		Find "Skip chest" on a screen
+		'''
+		image = self.getScreen()
+		template = cv2.imread('images/skipChest.png')
 		result = self.findTemplate(image, template, threshold)
 		return result
 
@@ -90,8 +99,3 @@ class Screen():
 		for pt in zip(*loc[::-1]):
 			result = pt
 		return result
-
-	def takeRatingShot(self, color=cv2.COLOR_RGB2BGR):
-		image = pyautogui.screenshot(region=(250, 185, 60, 20))
-		image = cv2.cvtColor(np.array(image), color)
-		return image

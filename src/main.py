@@ -8,6 +8,7 @@ tools = Tools()
 class Main():
 	def __init__(self) -> None:
 		self.state = 'start'
+		self.errors = 10
 
 	def stateStart(self):
 		inBattle = screen.findStart()
@@ -20,7 +21,7 @@ class Main():
 		if (ad != None):
 			pyautogui.click(ad[0], ad[1]+30)
 			print('Закрыл рекламу')
-			tools.timer()
+			return
 
 		if (inBattle != None):
 			pyautogui.click(inBattle[0], inBattle[1]+30)
@@ -37,10 +38,22 @@ class Main():
 			pyautogui.click(category[0], category[1]+30)
 			self.state = 'waiting'
 			print('Категория выбрана')
+			self.errors = 10
 		else:
 			print('Не могу найти категорию')
+			self.errors -= 1
+			if (self.errors == 0):
+				self.state = 'start'
+				print('Возвращаюсь к старту')
+				self.errors = 10
 
 	def stateWaiting(self):
+		chest = screen.findChest()
+
+		if (chest != None):
+			pyautogui.click(chest[0], chest[1]+30)
+			print('Сундуки пропущены')
+
 		battle = screen.findBattle()
 
 		if (battle != None):
@@ -48,6 +61,17 @@ class Main():
 			print('Бой запущен')
 		else:
 			print('Ожидание начала боя')
+
+		inBattle = screen.findStart()
+
+		if (inBattle != None):
+			tools.timer(6)
+
+		inBattle = screen.findStart()
+
+		if (inBattle != None):
+			print('Бой завершен автоматически')
+			self.state = 'start'
 
 	def stateInBattle(self):
 		pyautogui.press('esc')
@@ -103,6 +127,8 @@ class Main():
 				
 			if (self.state == 'finish'):
 				self.stateFinish()
+
+			tools.timer(2)
 
 main = Main()
 main.run()
