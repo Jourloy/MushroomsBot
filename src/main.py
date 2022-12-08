@@ -24,11 +24,21 @@ class Main():
 
 		if (inBattle != None):
 			pyautogui.click(inBattle[0], inBattle[1]+30)
-			self.state = 'waiting'
+			self.state = 'category'
 			print('Запустил матч')
 		else:
 			print('Кнопка запуска не найдена')
 			tools.timer()
+
+	def stateCategory(self):
+		category = screen.findCategory()
+
+		if (category != None):
+			pyautogui.click(category[0], category[1]+30)
+			self.state = 'waiting'
+			print('Категория выбрана')
+		else:
+			print('Не могу найти категорию')
 
 	def stateWaiting(self):
 		battle = screen.findBattle()
@@ -78,6 +88,9 @@ class Main():
 
 			if (self.state == 'start'):
 				self.stateStart()
+				
+			if (self.state == 'category'):
+				self.stateCategory()
 			
 			if (self.state == 'waiting'):
 				self.stateWaiting()

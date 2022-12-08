@@ -26,6 +26,15 @@ class Screen():
 		result = self.findTemplate(image, template, threshold)
 		return result
 
+	def findCategory(self, threshold=.8):
+		'''
+		Find "Category" on a screen
+		'''
+		image = self.getScreen()
+		template = cv2.imread('images/category.png')
+		result = self.findTemplate(image, template, threshold)
+		return result
+
 	def findAd(self, threshold=.8):
 		'''
 		Find "AD" on a screen
